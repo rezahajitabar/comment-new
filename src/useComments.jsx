@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 
-export const usecomment=async()=>{
+export const useComments=()=>{
     const [comments,setComments]=useState([]);
     const [loading,setLoading]=useState(false);
     const [error,setError]=useState(null);
@@ -15,9 +15,21 @@ export const usecomment=async()=>{
             }catch(error){
                 setError(error.message)
             }finally{
-                setLoading()
+                setLoading(false)
             }
           
         }
+        fetchcomment()
     },[])
+    const addReply=(commentId,replyText)=>{
+        setComments(prevComment=>prevComment.map(comment=>comment.id===commentId? {
+              ...comment,replies:[
+                comment.replies,
+                {id:Date.now(),body:replyText,email:'reza@email.com'}
+              ]
+        }: comment)) 
+    }
+    return({comments,loading,error,addReply})
 }
+
+export default useComments
