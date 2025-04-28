@@ -24,7 +24,7 @@ export const useComments=()=>{
     const addReply=(commentId,replyText)=>{
         setComments(prevComment=>prevComment.map(comment=>comment.id===commentId? {
               ...comment,replies:[
-                comment.replies,
+                ...comment.replies,
                 {id:Date.now(),body:replyText,email:'reza@email.com'}
               ]
         }: comment)) 
